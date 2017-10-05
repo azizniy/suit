@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const fs	  = require('fs')
 
 let config = {
-	output    : {filename : '[name]'},
+	output  : {filename : '[name]'},
 	devtool : 'source-map',
 	module  : {
 		loaders	: [{
@@ -41,20 +41,21 @@ module.exports = env => {
 			test: /\.(jpg|png|svg)$/, 
 			loader: 'url-loader'
 		}])
+		// watch
+		if (env.mode == 'watch' || env.mode == 'extern')
+			Object.assign(config, {
+				plugins   : [new webpack.HotModuleReplacementPlugin()],
+				devServer : {
+					contentBase : './',
+					stats       : 'errors-only',
+					inline      : true,
+					hot         : true,
+					port        : 8000
+				}
+			})
 		// extern
 		if (env.mode == 'extern') 
 			config.devServer.host = require('ip').address()
-		// watch
-		if (env.mode == 'watch') Object.assign(config, {
-			plugins   : [new webpack.HotModuleReplacementPlugin()],
-			devServer : {
-				contentBase : './',
-				stats       : 'errors-only',
-				inline      : true,
-				hot         : true,
-				port        : 8000
-			}
-		})
 		// adjustments
 		config.plugins
 			.push(new webpack.ExternalsPlugin('commonjs', ['electron']))

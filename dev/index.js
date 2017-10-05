@@ -3,34 +3,44 @@ const run = require('./src/run.js')
 const env = require('./src/env.js')
 
 let checks = {
-	'client extern' () {
+	// set env
+	'extern' () {
 		env.set('dev')
-		pre.client.watch()
+	},
+	'watch' () {
+		env.set('dev')
+	},
+	'build' () {
+		env.set('prod')
+	},
+	// client mode
+	'client extern' () {
+		pre.client.extern()
 	},
 	'client watch' () {
-		env.set('dev')
 		pre.client.watch()
 	},
 	'client build' () {
-		env.set('prod')
 		pre.client.build()
 	},
-	'server watch extern' () {
-		env.set('dev')
+	// server mode
+	'server extern' () {
+		pre.server.watch()
+		pre.server.nodemon()
+	},
+	'server watch' () {
 		pre.server.watch()
 		pre.server.nodemon()
 	},
 	'server build' () {
-		env.set('prod')
 		pre.server.build()
 	},
+	// electron
 	'electron watch' () {
-		env.set('dev')
 		pre.client.watch()
 		pre.electron.watch()
 	},
 	'electron build' () {
-		env.set('prod')
 		pre.client.build(pre.electron.build)
 	}
 }
@@ -55,6 +65,9 @@ let pre = {
 			--progress`, onClose)
 	},
 	server : {
+		nodemon : () => run('se', 'bgYellow', 
+			`./node_modules/.bin/nodemon
+			./server/build/index.js -q`),
 		watch : () => run('se', 'bgGreen',
 			`./node_modules/.bin/webpack 
 			--config ${__dirname}/src/webpack.js 
@@ -65,10 +78,7 @@ let pre = {
 			--config ${__dirname}/src/webpack.js 
 			--env.target server 
 			--env.mode build 
-			--progress`, onClose),
-		nodemon : () => run('se', 'bgYellow', 
-			`./node_modules/.bin/nodemon
-			./server/build/index.js -q`)
+			--progress`, onClose)
 	},
 	electron : {
 		watch : () => run('el', 'bgBlue',

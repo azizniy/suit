@@ -2,8 +2,8 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const url  = require('url')
 const path = require('path')
-const env  = require(`./node_modules/dev/env.js`)
-let window
+const env  = require(`./dev/env.js`)
+let window = null
 
 if (env == 'dev') require('electron-reload')(__dirname, {
 	hardResetMethod : 'exit',
