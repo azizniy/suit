@@ -1,0 +1,17 @@
+
+$bg          : hsl(200,10%,5%)
+$hud         : rgba(white, .5)
+$selected    : rgba(white, 1)
+$highlighted : hsla(200,100%,50%, .5)
+
+body
+	margin      : 0px
+	font-family : 'helvetica neue'
+	font-size   : 1vw
+	color       : white
+	background-color   : $bg
+	border-collapse    : collapse
+	-webkit-app-region : drag
+	&.dev
+		&, *
+			border : 1px $highlighted solid !important
