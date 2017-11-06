@@ -2,8 +2,10 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const url  = require('url')
 const path = require('path')
-const env  = require(`./dev/env.js`)
+const env  = require('dev/env.js')
 let window = null
+
+let server = require('../server/build/')
 
 if (env == 'dev') require('electron-reload')(__dirname, {
 	hardResetMethod : 'exit',
@@ -23,7 +25,7 @@ let createWindow = () => {
 		window.loadURL('http://localhost:8000/client')
 	} else
 		window.loadURL(url.format({
-			pathname : path.join(__dirname, '/client/index.html'),
+			pathname : path.join(__dirname, '../client/index.html'),
 			protocol : 'file:',
 			slashes  : true
 		}))
