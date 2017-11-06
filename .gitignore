@@ -1,2 +1,5 @@
 .DS_Store
 **/build/
+node_modules/*
+!node_modules/dev/
+!node_modules/fw/
