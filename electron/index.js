@@ -2,7 +2,7 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const url  = require('url')
 const path = require('path')
-const env  = require('dev/env.js')
+const env  = require('dev')
 let window = null
 
 let server = require('../server/build/')

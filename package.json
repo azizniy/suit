@@ -4,7 +4,7 @@
 	"description": "antonkluev's App",
 	"main": "./electron/index.js",
 	"scripts": {
-		"start": "node ./node_modules/dev/. $1"
+		"start": "node ./node_modules/dev/start.js $1"
 	},
 	"author": "antonkluev",
 	"license": "ISC",
