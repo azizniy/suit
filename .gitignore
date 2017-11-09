@@ -4,5 +4,3 @@ package-lock.json
 node_modules/*
 !node_modules/dev/
 !node_modules/fw/
-!node_modules/_dev
-!node_modules/_fw
