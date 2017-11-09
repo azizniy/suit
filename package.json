@@ -29,5 +29,9 @@
 		"url-loader": "^0.5.9",
 		"webpack": "^2.7.0",
 		"webpack-dev-server": "^2.8.1"
+	},
+	"dependencies": {
+		"fw": "file:node_modules/fw",
+		"dev": "file:node_modules/dev"
 	}
 }
