@@ -1,33 +1,56 @@
 
 
+# About
+
+This project is about an interactive suit. How to use NodeJs and Webpack, see for the __Introduction in DEV Environment__ section.
+
+# Used Hardware
+- any pc, acts as a server & same time as a ui
+- arduino
+- sensors
+- attachable midi & other controllers
 
 # Used Software
-- nodejs, webpack, es6, coffeescript, sass
-- fw - framework of Anton Kluev
-- for more information see sections `"dependencies" : {}` and `"devDependencies" : {}` in ./package.json`
+- nodejs (npm), webpack, es6, sass, electron
+- `node_modules/fw` - framework by dev@antonkluev.com
+- for more information about used packages see sections `"dependencies" : {}` and `"devDependencies" : {}` in `./package.json`
 
-# Projekt Initialization
-1. download and install `nodejs` with `lastest features`
-2. use `git` console on windows *(to make the download of the `fw module` from git possible)*
-3. navigate to the project
-4. `npm install` to install all the dependencies
 
-# App Launch
-1. navigate to the project
-2. launch script in the console
-	- `npm run client` to start the localhost on the port `8000` or 
-	- `npm run build` to build the project
-	- for more information see the section `"scipts" : {}` in `./package.json`
-3. navigate with chrome to 
-	- `localhost:8000/#layoutEngine` for Layout Engine or to 
-	- `localhost:8000` for iPad mockup
+# Introduction in DEV Environment
 
-# Dev
-- `./src/app.coffee` is the entry point of the program
-- `./build/app.js` is the output
-- for more information see `./webpack.json`
+#### NodeJs
+
+- What is __NodeJS__? NodeJs is a server side JavaScript. Requires installation from the official website. Executable from Command Line Interface. For more information see: https://nodejs.org/en/
+
+- What is __npm__? Npm is a Node Package Manager aka javascript module standard, aka a big library with modules. For more information see: https://www.npmjs.com
+
+	- to start the project, input `npm init` and fullfill the application passport. It is created in the root folder and calls `./package.json`.
+	
+	- `./package.json` contains different informations about the node application, especially `dependencies` and `devDependencies`.
+	
+	- `dependencies` are modules used in the application.
+	
+	- `devDependencies` are modules used to develop, maintain and transpile and compile the application.
+	
+	- to install a `dependency` execute `npm install {module-name} -S` or `npm i {module-name} -S`. The module is installed in the `./node_modules/` folder.
+	
+	- to install a `devDependencie` execute `npm i {module-name} -D` 
+	
+	- why do we need a register of dependencies in `./package.json`? Before upload to git, you can free up the space of your application folder by deleting the `./node_modules/` folder, because it take a lot of disk space. By donwloading the raw project from the repository, just pull all the dependencies from the npm library by executing `npm install` or `npm i` 
+	
+	- to see installed modules `npm ls -depth 0`
+
+#### Webpack
+
+- What is __webpack__? Webpack is an dev module that cares about packaging (usage of es6 modules), transpiling (translating one programming language into another), watching (retranspile on file save while developing), building (to build the final product, compress, uglify) the application and also provides a development server for the client.
+
+- where sitts the configuration file of webpack? It's digged in `./node_modules/dev/src/webpack.js`
+
+- why do we need webpack? In order to use lastest es6 (newest JavaScript version), to use es6 modules and transpiling the sass dialect of css we need this funky setup.
 
 # Author
+- Aziz 
+
 - Anton Kluev
 - dev@antonkluev.com
 - https://github.com/antonkluev
