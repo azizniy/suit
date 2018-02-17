@@ -7,12 +7,14 @@ import {Button} from './Button'
 
 export let Widget = ({
 	parent = document.body,
-	position = 'center'
+	position = 'center',
+	title = 'widget'
 } = {}) => {
 	// body
 	let widget = document.createElement('div')
 	widget.classList.add('widget', position)
 	parent.appendChild(widget)
+	widget.innerHTML = `<div class='title'>${title}<div>`
 	widget.onclick = e => e.stopPropagation()
 	// imu's
 	let gyro = GraphXYZ({parent: widget, type : 'gyroscope'})
@@ -27,7 +29,12 @@ export let Widget = ({
 	})
 	// interface
 	return {
-		vibro, gyro, magn, acc
+		vibro, gyro, magn, acc,
+		draw () {
+			gyro.draw()
+			magn.draw()
+			acc.draw()
+		}
 	}
 }
 

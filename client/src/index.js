@@ -26,11 +26,19 @@ for (let i in pins) {
 			if (e.shiftKey) {
 				if (pinList.length == Object.keys(pins).length)
 					pinList = []
-				if (pinList.indexOf(i) == -1) 
+				let index = pinList.indexOf(i)
+				if (index == -1) {
 					pinList.push(i)
+					colorPicker.setColor(pins[i].rgb)
+				} else {
+					pinList.splice(index, 1)
+					if (pinList.length == 0)
+						for (let i in pins) pinList.push(i)
+				}
 			} else {
 				pinList = []
 				pinList.push(i)
+				colorPicker.setColor(pins[i].rgb)
 			}
 			e.stopPropagation()
 		}
@@ -44,41 +52,56 @@ let colorPicker = ColorPicker({
 	}
 })
 
-document.body.onclick = e => {
+document.body.onmousedown = e => {
 	pinList = []
 	for (let i in pins) pinList.push(i)
 }
 
-colorPicker.setColor({r: 255, g: 255, b: 255})
+colorPicker.setColor({r: 100, g: 150, b: 255})
+pinList.forEach(i => pins[i].setColor({r: 100, g: 150, b: 255}))
 
-let lFootWidget = Widget({position: 'lFoot'})
-let rFootWidget = Widget({position: 'rFoot'})
-let lHandWidget = Widget({position: 'lHand'})
-let rHandWidget = Widget({position: 'rHand'})
+let IMUs = {
+	lFoot : Widget({position: 'lFoot', title: 'left foot'}),
+	rFoot : Widget({position: 'rFoot', title: 'right foot'}),
+	lHand : Widget({position: 'lHand', title: 'left hand'}),
+	rHand : Widget({position: 'rHand', title: 'right hand'})
+}
+
+setInterval(() => {
+	let setTriplet = plot => {
+		plot.x.record(Math.random())
+		plot.y.record(Math.random())
+		plot.z.record(Math.random())
+	}
+	let setDevice = device => {
+		setTriplet(device.gyro)
+		setTriplet(device.magn)
+		setTriplet(device.acc)
+	}
+	for (let i in IMUs) setDevice(IMUs[i])
+}, 100)
 
 loop(() => {
-	lFootWidget.gyro.draw()
-	lFootWidget.magn.draw()
-	lFootWidget.acc.draw()
+	for (let i in IMUs) IMUs[i].draw()
 	cords.draw(pinList, pins, colorPicker.wheel)
 })
 
 ipcRenderer.on('update', (event, msg) => {
 	for (let i in msg) {
 		
-		if (i == 'vibro') lFootWidget.vibro.setState(msg[i])
+		if (i == 'vibro') IMUs.lFoot.vibro.setState(msg[i])
 		
-		if (i == 'gx') lFootWidget.gyro.x.record(msg[i])
-		if (i == 'gy') lFootWidget.gyro.y.record(msg[i])
-		if (i == 'gz') lFootWidget.gyro.z.record(msg[i])
-		
-		if (i == 'mx') lFootWidget.magn.x.record(msg[i])
-		if (i == 'my') lFootWidget.magn.y.record(msg[i])
-		if (i == 'mz') lFootWidget.magn.z.record(msg[i])
-		
-		if (i == 'ax') lFootWidget.acc.x.record(msg[i])
-		if (i == 'ay') lFootWidget.acc.y.record(msg[i])
-		if (i == 'az') lFootWidget.acc.z.record(msg[i])
+		// if (i == 'gx') lFootWidget.gyro.x.record(msg[i])
+		// if (i == 'gy') lFootWidget.gyro.y.record(msg[i])
+		// if (i == 'gz') lFootWidget.gyro.z.record(msg[i])
+        // 
+		// if (i == 'mx') lFootWidget.magn.x.record(msg[i])
+		// if (i == 'my') lFootWidget.magn.y.record(msg[i])
+		// if (i == 'mz') lFootWidget.magn.z.record(msg[i])
+        // 
+		// if (i == 'ax') lFootWidget.acc.x.record(msg[i])
+		// if (i == 'ay') lFootWidget.acc.y.record(msg[i])
+		// if (i == 'az') lFootWidget.acc.z.record(msg[i])
 		
 		pinList.forEach(id => {
 			if (i == id) {

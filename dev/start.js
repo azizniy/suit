@@ -90,6 +90,8 @@ let pre = {
 		build : () => run('el', 'bgBlue', 
 			`./node_modules/.bin/electron-packager 
 			. --out ./electron/build --overwrite`)
+			// --platform=win32
+			// --arch=x64
 	}
 }
 

@@ -14,10 +14,11 @@ if (env == 'dev') require('electron-reload')(__dirname, {
 
 let createWindow = () => {
 	window = new BrowserWindow({
-		width	    : 1000,
-		height	    : 1000,
-		resizable   : 1,
-		fullscreen  : true
+		width	    : 800,
+		height	    : 800,
+		resizable   : false,
+		// vibrancy    : 'dark',
+		titleBarStyle : 'hidden-inset',
 		// transparent : true,
 		// frame 	    : false
 	})

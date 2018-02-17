@@ -7,14 +7,14 @@ export let Button = ({
 	onClick   = () => {},
 } = {}) => {
 	let button = document.createElement('div')
-	button.classList.add('button')
+	button.classList.add('vibro')
 	parent.appendChild(button)
 	// events
 	button.onmousedown = onPress
 	button.onclick     = onClick
 	button.onmouseup   = onRelease
 	// label
-	button.innerHTML   = name
+	// button.innerHTML   = name
 	return {
 		setState(v) {
 			button.classList[v? 'add': 'remove']('active')

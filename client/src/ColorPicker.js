@@ -33,7 +33,6 @@ export let ColorPicker = ({
 		let center = {
 			x: wheel.offsetWidth  / 2,
 			y: wheel.offsetHeight / 2}
-		console.log(center);
 		let pos = {
 			x : e.pageX - (wheelRect.left + center.x),
 			y : e.pageY - (wheelRect.top  + center.y)}
@@ -54,6 +53,7 @@ export let ColorPicker = ({
 			huePosition.x) / (2 * Math.PI)
 		hsv.h = hueValue < 0? -1 * hueValue: 1 - hueValue
 		onColorChange(HSVtoRGB(hsv))
+		e.stopPropagation()
 	}
 	dragAndDrop(wheel, {
 		onDown : setHueAndSaturation,
@@ -70,6 +70,7 @@ export let ColorPicker = ({
 		value.style.left = lCurrent + 'px'
 		wheel.style.opacity = map(hsv.v, 0, 1, .2, .5)
 		onColorChange(HSVtoRGB(hsv))
+		e.stopPropagation()
 	}
 	dragAndDrop(slider, {
 		onDown : setValue,

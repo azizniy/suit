@@ -5,7 +5,7 @@ body
 	&.dev *
 		border : 1px red solid !important
 
-$bg     : hsl(200, 100%, 5%)
+$bg     : hsl(200, 50%, 5%)
 $fg     : hsl(200, 20%, 20%)
 $blue   : hsl(169,100%,50%)
 $red    : hsl(330,100%,50%)
@@ -16,19 +16,21 @@ $light  : hsla(200,0%,100%, .7)
 body
 	background-color    : $bg
 	background-image    : url(./body.png)
-	background-position : center bottom
-	background-size     : auto 90%
+	background-position : 50% 35%
+	background-size     : auto 80%
 	background-repeat   : no-repeat
+	-webkit-app-region  : drag
 	color       : white
 	font-family : arial
 	cursor      : default
+	user-select : none
 
-.title
+.appTitle
 	position    : absolute
 	left        : 50%
 	top         : 2%
 	font-size   : 6vh
-	margin-left : -37vh
+	margin-left : -40vh
 	font-weight : lighter
 
 .cords
@@ -37,56 +39,80 @@ body
 	top      : 0
 	width    : 100%
 	height   : 100%
-	
 
 .widget
 	position      : absolute
-	background    : $fg
-	width         : 134
-	padding       : 1px
+	display       : inline-block
 	border-radius : 1px
 	transform     : translate(-50%, -50%)
 	left          : 50%
 	top           : 50%
+	text-align    : center
 	&.rHand
-		margin-left : -30vh
-		margin-top  : -13vh
-	&.lHand
-		margin-left : 30vh
-		margin-top  : -13vh
-	&.rFoot
-		margin-left : -30vh
-		margin-top  : 31vh
-	&.lFoot
-		margin-left : 30vh
-		margin-top  : 31vh
-	.device
-		display    : inline-block
-		margin     : 1px
+		margin-left : -28vh
+		margin-top  : -12vh
 		.icon
-			display : inline-block
-			width   : 30
-			height  : 30
-			margin-right : 2px
-			background-color    : $bg
+			left : -15px
+	&.lHand
+		margin-left : 28vh
+		margin-top  : -12vh
+		.icon
+			right : -15px
+	&.rFoot
+		margin-left : -28vh
+		margin-top  : 18vh
+		.icon
+			left : -15px
+	&.lFoot
+		margin-left : 28vh
+		margin-top  : 18vh
+		.icon
+			right : -15px
+	.title
+		position      : relative
+		display       : block
+		font-family   : menlo
+		font-weight   : lighter
+		font-size     : 11px
+		margin-bottom : 10px
+	.device
+		display       : block
+		margin-bottom : 4px
+		.icon
+			position: absolute
+			width   : 30px
+			height  : 30px
+			border-radius : 15px;
+			background-color    : $fg
 			background-position : center
-			background-size     : 50%
+			background-size     : 60%
 			background-repeat   : no-repeat
 		canvas
-			background-color    : $bg
-			display    : inline-block
-	.button
-		background-color : $bg
-		margin           : 1px
-		text-align       : center
-		padding          : 10px 0px
-		cursor			 : pointer
-		user-select      : none
-		color            : $light
+			display : inline-block
+	.vibro
+		display       : inline-block
+		width         : 50px
+		height        : 50px
+		text-align    : center
+		cursor        : pointer
+		color         : $light
+		margin-top    : 10px
+		border-radius : 25px;
+		background-color    : $fg
+		background-position : center
+		background-size     : 70%
+		background-repeat   : no-repeat
+		background-image    : url(./vibro.png)
 		&:active, &.active
 			background-color : $orange
 			color            : $bg
-			box-shadow       : 0 0 100px rgba($orange, .3)
+			box-shadow       : 0 0 100px rgba($orange, .5)
+			animation        : .05s shake infinite alternate
+			@keyframes shake
+				from
+					transform: translateX(3px)
+				to
+					transform: translateX(-3px)
 
 .pin
 	position  : absolute
@@ -102,47 +128,42 @@ body
 	-webkit-background-clip : content
 	&.rShoulder
 		margin-left : -12vh
-		margin-top  : -25vh
+		margin-top  : -28vh
 	&.lShoulder
 		margin-left : 12vh
-		margin-top  : -25vh
+		margin-top  : -28vh
 	&.rRibs
-		margin-left : -4vh
-		margin-top  : -11vh
+		margin-left : -3vh
+		margin-top  : -18vh
 	&.lRibs
-		margin-left : 4vh
-		margin-top  : -11vh
+		margin-left : 3vh
+		margin-top  : -18vh
 	&.rThigh
-		margin-left : -7vh
-		margin-top  : 9vh
-	&.lThigh
-		margin-left : 7vh
-		margin-top  : 9vh
-	&.rFoot
 		margin-left : -8vh
-		margin-top  : 25vh
-	&.lFoot
+		margin-top  : 0vh
+	&.lThigh
 		margin-left : 8vh
-		margin-top  : 25vh
+		margin-top  : 0vh
+	&.rFoot
+		margin-left : -12vh
+		margin-top  : 18vh
+	&.lFoot
+		margin-left : 12vh
+		margin-top  : 18vh
 
 .colorPicker
 	position : absolute
-	display  : inline-block
-	padding  : 10px
 	left     : 50%
-	top      : 50%
-	margin-left : 30vh
-	margin-top  : 9vh
-	transform   : translate(-50%, -50%)
+	bottom   : 8vh
 	text-align  : center
-	user-select : none
-	
+	transform   : translateX(-50%)
 	.wheel
 		position : relative
-		width    : 140px
-		height   : 140px
+		width    : 100px
+		height   : 100px
 		opacity  : .4
 		cursor   : pointer
+		-webkit-app-region  : no-drag
 		margin-bottom       : 2vh
 		background-image    : url(./wheel.png)
 		background-position : center
@@ -153,8 +174,7 @@ body
 		width    : 20px
 		height   : 20px
 		cursor   : pointer
-		border   : 2px transparent solid
-		margin   : -2px 0px 0px -2px
+		margin   : -10px 0 0 -10px
 		pointer-events   : none
 		background-color : $light
 		border-radius    : 12px
@@ -162,15 +182,16 @@ body
 	.slider
 		position : relative
 		display  : inline-block
-		width    : 140px
+		width    : 100px
 		cursor   : pointer
-		background    : linear-gradient(to right, rgba(white, .05), rgba(white, .15))
 		border-radius : 14px
+		background    : linear-gradient(to right, rgba(white, .05), rgba(white, .15))
+		-webkit-app-region : no-drag
 		.value
 			position : relative
 			width    : 20px
 			height   : 20px
-			border   : 2px transparent solid
+			// border   : 2px transparent solid
 			border-radius    : 12px
 			background-color : $light
 			pointer-events   : none

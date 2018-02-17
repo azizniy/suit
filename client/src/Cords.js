@@ -14,20 +14,20 @@ export let Cords = ({
 			cv.height = window.innerHeight
 			let fromRect = wheel.getBoundingClientRect()
 			let from = {
-				x: fromRect.left,
-				y: fromRect.top + fromRect.height/2}
+				x: fromRect.left + fromRect.width/2,
+				y: fromRect.top} // + fromRect.height/2
 			// draw pair
 			let draw = (pin, select) => {
 				let toRect = pin.getBoundingClientRect()
 				let to = {
-					x: toRect.right,
-					y: toRect.top + toRect.height/2}
-				let middle = from.x - (from.x - to.x)/2
+					x: toRect.left + toRect.width/2,
+					y: toRect.bottom} // + toRect.height/2
+				let middle = from.y - (from.y - to.y)/2
 				ct.beginPath()
 				ct.moveTo(from.x, from.y)
 				ct.bezierCurveTo(
-					middle, from.y,
-					middle, to.y, 
+					from.x, middle * .9,
+					to.x, middle * 1.1, 
 					to.x, to.y)
 				ct.strokeStyle = `rgba(255,255,255, ${select? .4: .05})`
 				ct.stroke()

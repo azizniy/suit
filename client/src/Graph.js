@@ -2,26 +2,32 @@
 import {map} from './helpers'
 
 let Graph = (cv, ct, color) => {
-	let padding = 4
+	let padding = 0
 	let buffer = []
-	let value  = 0
-	let min    = 0
-	let max    = 0
+	let value  = {s: 0, v: 0}
+	let range  = {sMin: 0, sMax: 0, vMin: 0, vMax: 0}
 	return {
 		record (v) {
-			value = v
-			if (min > v) min = v
-			if (max < v) max = v
+			value.s = v
+			if (range.sMin > v) range.sMin = v
+			if (range.sMax < v) range.sMax = v
 		},
 		draw () {
-			buffer.push(value)
-			buffer = buffer.slice(-60)
+			// animate range
+			range.vMin += (range.sMin - range.vMin) * .01
+			range.vMax += (range.sMax - range.vMax) * .01
+			value.v += (value.s - value.v) * 0.5
+			// shift buffer
+			buffer.push(value.v)
+			buffer = buffer.slice(-100)
 			// draw stuff
 			ct.beginPath()
-			buffer.forEach((value, i) => {
+			buffer.forEach((v, i) => {
 				ct[i == 0? 'moveTo': 'lineTo'](
 					i * cv.width / (buffer.length - 1),
-					map(value, min, max, padding, cv.height-padding))
+					map(v, 
+						range.vMin, range.vMax, 
+						padding, cv.height-padding))
 			})
 			ct.strokeStyle = color
 			ct.lineWidth   = 1
@@ -48,19 +54,30 @@ export let GraphXYZ = ({
 	var ct = cv.getContext('2d')
 	device.appendChild(cv)
 	// settings
-	cv.width  = 100
+	cv.width  = 150
 	cv.height = 30
-	let x = Graph(cv, ct, 'hsl(330,100%,50%)')
-	let y = Graph(cv, ct, 'hsl(77,100%,50%)')
-	let z = Graph(cv, ct, 'hsl(169,100%,50%)')
+	let x = Graph(cv, ct, 'hsl(320,100%,50%)')
+	let y = Graph(cv, ct, 'hsl( 90,100%,50%)')
+	let z = Graph(cv, ct, 'hsl(200,100%,50%)')
 	// interface
 	return {
 		x,y,z,
 		draw() {
 			ct.clearRect(0, 0, cv.width, cv.height)
+			// graph
 			x.draw()
 			y.draw()
 			z.draw()
+			// mask
+			let gradient = ct.createLinearGradient(0, 0, cv.width,0)
+			let bg = 'hsla(200, 50%, 5%, 1)'
+			let to = 'hsla(200, 50%, 5%, 0)'
+			gradient.addColorStop(.0, bg)
+			gradient.addColorStop(.4, to)
+			gradient.addColorStop(.6, to)
+			gradient.addColorStop(1., bg)
+			ct.fillStyle = gradient
+			ct.fillRect(0, 0, cv.width, cv.height)
 		}
 	}
 }
