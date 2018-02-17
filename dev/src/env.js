@@ -4,7 +4,7 @@ const fs  = require('fs')
 module.exports = {
 	set (env) {
 		return fs.writeFile(
-			'./node_modules/dev/index.js', 
+			'./dev/index.js', 
 			`module.exports = '${env}'`, 
 			err => console.log)
 	},

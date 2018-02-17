@@ -1,12 +1,11 @@
 
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow} = require('electron')
 const url  = require('url')
 const path = require('path')
-const env  = require('dev')
-// let env = 'build'
+const env  = require('../dev')
 let window = null
 
-let server = require('../server/build/')
+let server = require('../server/src/')
 
 if (env == 'dev') require('electron-reload')(__dirname, {
 	hardResetMethod : 'exit',
@@ -15,9 +14,10 @@ if (env == 'dev') require('electron-reload')(__dirname, {
 
 let createWindow = () => {
 	window = new BrowserWindow({
-		width	    : 800,
-		height	    : 600,
+		width	    : 1000,
+		height	    : 1000,
 		resizable   : 1,
+		fullscreen  : true
 		// transparent : true,
 		// frame 	    : false
 	})
@@ -35,4 +35,6 @@ let createWindow = () => {
 
 app.on('ready', createWindow)
 app.on('activate', () => {if (window === null) createWindow()})
-app.on('window-all-closed', () => {if (process.platform !== 'darwin') app.quit()})
+app.on('window-all-closed', () => {
+	if (process.platform !== 'darwin') app.quit()
+})

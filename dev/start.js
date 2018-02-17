@@ -11,7 +11,7 @@ let checks = {
 		env.set('dev')
 	},
 	'build' () {
-		env.set('prod')
+		env.set('build')
 	},
 	// client mode
 	'client extern' () {
@@ -38,13 +38,13 @@ let checks = {
 	// electron
 	'electron watch' () {
 		pre.client.watch()
-		pre.server.watch()
+		// pre.server.watch()
 		pre.electron.watch()
 	},
 	'electron build' () {
 		let state = 0
-		let pack = () => {if (++ state == 2) pre.electron.build()}
-		pre.server.build(pack)
+		let pack = () => {if (++ state == 1) pre.electron.build()}
+		// pre.server.build(pack)
 		pre.client.build(pack)
 	}
 }
