@@ -48,7 +48,10 @@ for (let i in pins) {
 
 let colorPicker = ColorPicker({
 	onColorChange (rgb) {
-		pinList.forEach(i => pins[i].setColor(rgb))
+		pinList.forEach(i => {
+			pins[i].setColor(rgb)			
+			pins[i].sendToServer(rgb)
+		})
 	}
 })
 
@@ -67,19 +70,19 @@ let IMUs = {
 	rHand : Widget({position: 'rHand', title: 'right hand'})
 }
 
-setInterval(() => {
-	let setTriplet = plot => {
-		plot.x.record(Math.random())
-		plot.y.record(Math.random())
-		plot.z.record(Math.random())
-	}
-	let setDevice = device => {
-		setTriplet(device.gyro)
-		setTriplet(device.magn)
-		setTriplet(device.acc)
-	}
-	for (let i in IMUs) setDevice(IMUs[i])
-}, 100)
+// setInterval(() => {
+// 	let setTriplet = plot => {
+// 		plot.x.record(Math.random())
+// 		plot.y.record(Math.random())
+// 		plot.z.record(Math.random())
+// 	}
+// 	let setDevice = device => {
+// 		setTriplet(device.gyro)
+// 		setTriplet(device.magn)
+// 		setTriplet(device.acc)
+// 	}
+// 	for (let i in IMUs) setDevice(IMUs[i])
+// }, 100)
 
 loop(() => {
 	for (let i in IMUs) IMUs[i].draw()
@@ -88,20 +91,32 @@ loop(() => {
 
 ipcRenderer.on('update', (event, msg) => {
 	for (let i in msg) {
-		
+		// console.log(msg)
 		if (i == 'vibro') IMUs.lFoot.vibro.setState(msg[i])
 		
-		// if (i == 'gx') lFootWidget.gyro.x.record(msg[i])
-		// if (i == 'gy') lFootWidget.gyro.y.record(msg[i])
-		// if (i == 'gz') lFootWidget.gyro.z.record(msg[i])
-        // 
-		// if (i == 'mx') lFootWidget.magn.x.record(msg[i])
-		// if (i == 'my') lFootWidget.magn.y.record(msg[i])
-		// if (i == 'mz') lFootWidget.magn.z.record(msg[i])
-        // 
-		// if (i == 'ax') lFootWidget.acc.x.record(msg[i])
-		// if (i == 'ay') lFootWidget.acc.y.record(msg[i])
-		// if (i == 'az') lFootWidget.acc.z.record(msg[i])
+		if (i == 'gx1') IMUs.lFoot.gyro.x.record(msg[i])
+		if (i == 'gy1') IMUs.lFoot.gyro.y.record(msg[i])
+		if (i == 'gz1') IMUs.lFoot.gyro.z.record(msg[i])
+		if (i == 'mx1') IMUs.lFoot.magn.x.record(msg[i])
+		if (i == 'my1') IMUs.lFoot.magn.y.record(msg[i])
+		if (i == 'mz1') IMUs.lFoot.magn.z.record(msg[i])
+		if (i == 'ax1') IMUs.lFoot.acc.x.record(msg[i])
+		if (i == 'ay1') IMUs.lFoot.acc.y.record(msg[i])
+		if (i == 'az1') IMUs.lFoot.acc.z.record(msg[i])
+		
+		if (i == 'gx2') IMUs.rFoot.gyro.x.record(msg[i])
+		if (i == 'gy2') IMUs.rFoot.gyro.y.record(msg[i])
+		if (i == 'gz2') IMUs.rFoot.gyro.z.record(msg[i])
+		if (i == 'mx2') IMUs.rFoot.magn.x.record(msg[i])
+		if (i == 'my2') IMUs.rFoot.magn.y.record(msg[i])
+		if (i == 'mz2') IMUs.rFoot.magn.z.record(msg[i])
+		if (i == 'ax2') IMUs.rFoot.acc.x.record(msg[i])
+		if (i == 'ay2') IMUs.rFoot.acc.y.record(msg[i])
+		if (i == 'az2') IMUs.rFoot.acc.z.record(msg[i])
+		
+		if (i == 'r') pins.lShoulder.setColor({r: msg[i] * 255})
+		if (i == 'g') pins.lShoulder.setColor({g: msg[i] * 255})
+		if (i == 'b') pins.lShoulder.setColor({b: msg[i] * 255})
 		
 		pinList.forEach(id => {
 			if (i == id) {

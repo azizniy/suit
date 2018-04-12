@@ -9,7 +9,7 @@ let server = require('../server/src/')
 
 if (env == 'dev') require('electron-reload')(__dirname, {
 	hardResetMethod : 'exit',
-	electron        : `./node_modules/.bin/electron`
+	electron        : './node_modules/.bin/electron'
 })
 
 let createWindow = () => {
@@ -35,7 +35,11 @@ let createWindow = () => {
 }
 
 app.on('ready', createWindow)
-app.on('activate', () => {if (window === null) createWindow()})
+
+app.on('activate', () => {
+	if (window === null) createWindow()
+})
+
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') app.quit()
 })

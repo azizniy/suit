@@ -16,7 +16,8 @@ let Graph = (cv, ct, color) => {
 			// animate range
 			range.vMin += (range.sMin - range.vMin) * .01
 			range.vMax += (range.sMax - range.vMax) * .01
-			value.v += (value.s - value.v) * 0.5
+			// value.v += (value.s - value.v) * 0.5
+			value.v = value.s
 			// shift buffer
 			buffer.push(value.v)
 			buffer = buffer.slice(-100)
@@ -69,13 +70,13 @@ export let GraphXYZ = ({
 			y.draw()
 			z.draw()
 			// mask
-			let gradient = ct.createLinearGradient(0, 0, cv.width,0)
-			let bg = 'hsla(200, 50%, 5%, 1)'
-			let to = 'hsla(200, 50%, 5%, 0)'
-			gradient.addColorStop(.0, bg)
-			gradient.addColorStop(.4, to)
-			gradient.addColorStop(.6, to)
-			gradient.addColorStop(1., bg)
+			let gradient = ct.createRadialGradient(
+				cv.width/2, cv.height/2, 0, 
+				cv.width/2, cv.height/2, cv.width/2)
+			let bg = 'hsla(200, 15%, 7%, 1)'
+			let to = 'hsla(200, 15%, 7%, 0)'
+			gradient.addColorStop(0, to)
+			gradient.addColorStop(1, bg)
 			ct.fillStyle = gradient
 			ct.fillRect(0, 0, cv.width, cv.height)
 		}

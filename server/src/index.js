@@ -10,7 +10,6 @@ const MIDI = require('midi')
 const OSC  = require('osc')
 const Storage = require('./Storage')
 
-
 // inits
 let storage = new Storage()
 var midi = new MIDI.input()
@@ -43,6 +42,7 @@ let States = (params => {
 		midi    : 76,
 		midiMap : v => v == 0? 0: 1
 	},
+	
 	r : {
 		arduino : '/1/faderR',
 		midi    : 8,
@@ -59,18 +59,26 @@ let States = (params => {
 		midiMap : v => v/127
 	},
 	
-	ax : {arduino : '/1/ax'},
-	ay : {arduino : '/1/ay'},
-	ax : {arduino : '/1/az'},
-	gx : {arduino : '/1/gx'},
-	gy : {arduino : '/1/gy'},
-	gz : {arduino : '/1/gz'},
-	mx : {arduino : '/1/mx'},
-	my : {arduino : '/1/my'},
-	mz : {arduino : '/1/mz'}
+	gx1 : {arduino : '/1/gx1'},
+	gy1 : {arduino : '/1/gy1'},
+	gz1 : {arduino : '/1/gz1'},
+	mx1 : {arduino : '/1/mx'},
+	my1 : {arduino : '/1/my'},
+	mz1 : {arduino : '/1/mz'},
+	ax1 : {arduino : '/1/ax1'},
+	ay1 : {arduino : '/1/ay1'},
+	ax1 : {arduino : '/1/az1'},
+	
+	gx2 : {arduino : '/1/gx2'},
+	gy2 : {arduino : '/1/gy2'},
+	gz2 : {arduino : '/1/gz2'},
+	mx2 : {arduino : '/1/mx2'},
+	my2 : {arduino : '/1/my2'},
+	mz2 : {arduino : '/1/mz2'},
+	ax2 : {arduino : '/1/ax2'},
+	ay2 : {arduino : '/1/ay2'},
+	ax2 : {arduino : '/1/az2'},
 })
-
-
 
 // on connect
 osc.on('ready', () => { 
@@ -82,8 +90,6 @@ ipcMain.on('ready', (event, arg) => {
 	for (let i in States)
 		sendToUi(i, States[i].value)
 })
-
-
 
 // on arduino change
 osc.on('bundle', (oscBundle, timeTag, info) => {
@@ -124,19 +130,15 @@ ipcMain.on('ui', (event, arg) => {
 	}
 })
 
-
-
 // midi house work
 console.log(`[midi] devices found:`)
 for (let i = 0; i < midi.getPortCount(); i ++) {
 	console.log(`\t${i} :`, midi.getPortName(i))
 }
-// midi.openPort(0)
+midi.openPort(0)
 
 // osc house work
 osc.open()
-
-
 
 // exit
 process.on('SIGINT', () => {

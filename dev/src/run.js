@@ -9,12 +9,17 @@ module.exports = (label, color, cmd, onClose) => {
 	let process = spawn(cmd.shift(), cmd.concat('--color'))
 	let print = data => {
 		let space = new Array(label.length).fill(' ').join('')
-		let lines = data.toString().split('\n').map((line, i) => {
-			let l = last != label? label: space
-			last = label
-			return `${` ${l} `[color]} ${line}`})
+		let lines = data
+			.toString()
+			.replace(/[\b]/g, '\n')
+			.split('\n')
+			.map((line, i) => {
+				let l = last != label? label: space
+				last = label
+				return `${` ${l} `[color]} ${line}`})
 		lines.pop()
-		console.log(lines.join('\n'))}
+		console.log(lines.join('\n'))
+	}
 	process.stdout.on('data', print)
 	process.stderr.on('data', print)
 	if (onClose) process.on('close', onClose)
