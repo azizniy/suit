@@ -4,6 +4,14 @@
 
 This project is about an interactive suit. How to use NodeJs and Webpack, see for the __Introduction in DEV Environment__ section.
 
+# Quick Start
+- pull from git
+- cd to the root of the project
+- `npm i` to download and compile all required modules
+- `./node_modules/.bin/electron-rebuild` to recompile some native modules
+- `npm start electron.watch` to watch the project
+- `npm start electron.build` to build the final release
+
 # Used Hardware
 - any pc, acts as a server & same time as a ui
 - arduino
@@ -12,9 +20,7 @@ This project is about an interactive suit. How to use NodeJs and Webpack, see fo
 
 # Used Software
 - nodejs (npm), webpack, es6, sass, electron
-- `node_modules/fw` - framework by dev@antonkluev.com
 - for more information about used packages see sections `"dependencies" : {}` and `"devDependencies" : {}` in `./package.json`
-
 
 # Introduction in DEV Environment
 
@@ -49,7 +55,7 @@ This project is about an interactive suit. How to use NodeJs and Webpack, see fo
 - why do we need webpack? In order to use lastest es6 (newest JavaScript version), to use es6 modules and transpiling the sass dialect of css we need this funky setup.
 
 # Author
-- Aziz 
+- Aziz Niyazov
 
 - Anton Kluev
 - dev@antonkluev.com
