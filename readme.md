@@ -50,7 +50,7 @@ This project is about an interactive suit. How to use NodeJs and Webpack, see fo
 
 - What is __webpack__? Webpack is an dev module that cares about packaging (usage of es6 modules), transpiling (translating one programming language into another), watching (retranspile on file save while developing), building (to build the final product, compress, uglify) the application and also provides a development server for the client.
 
-- where sitts the configuration file of webpack? It's digged in `./node_modules/dev/src/webpack.js`
+- where sitts the configuration file of webpack? It's digged in `./dev/src/webpack.js`
 
 - why do we need webpack? In order to use lastest es6 (newest JavaScript version), to use es6 modules and transpiling the sass dialect of css we need this funky setup.
 
