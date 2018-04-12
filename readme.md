@@ -58,7 +58,7 @@ This project is about an interactive suit. How to use NodeJs and Webpack, see fo
 - Aziz Niyazov
 
 - Anton Kluev
-- dev@antonkluev.com
-- https://github.com/antonkluev
+	- dev@antonkluev.com
+	- https://github.com/antonkluev
 
 
