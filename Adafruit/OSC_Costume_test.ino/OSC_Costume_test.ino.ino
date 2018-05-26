@@ -15,7 +15,6 @@
 #include "BMP085.h"
 #include "Wire.h"
 
-
 //NEO Pixel
 #define PIN_STRIPE_1            12 // 16 - random colors // 0 - buildin led red // 2 - buildin led blue //14 - while 15th pin on, 1st led on stripe is blinking
 #define PIN_STRIPE_2            13
